@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: sudo apt-get update && sudo apt-get install -y g++ make
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build C++ CLI
+        run: make -j
+
+      - name: Run short simulation
+        run: |
+          mkdir -p data
+          ./nbody-orbit --scenario scenarios/figure8.json --out data/ci_traj.json \
+            --steps 4000 --dt 0.001 --frame-every 40
+
+      - name: Install pytest
+        run: python3 -m pip install -r python/requirements.txt
+
+      - name: Pytest
+        run: python3 -m pytest -q python/tests
+
+      - name: Energy CSV smoke
+        run: python3 python/analyze_energy.py data/ci_traj.json -o data/energy_drift.csv

@@ -1,0 +1,13 @@
+nbody-orbit
+*.o
+cpp/src/*.o
+data/*.json
+data/*.csv
+!data/.gitkeep
+.pytest_cache/
+__pycache__/
+*.pyc
+.DS_Store
+compile_commands.json
+.vscode/
+.idea/
