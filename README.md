@@ -1,5 +1,7 @@
 # nbody-orbit
 
+
+**Live demo:** https://sk090347.github.io/nbody-orbit/
 N-body gravity lab: C++17 Verlet integrator, Python energy drift analysis, and a canvas viz with a JS port of the same physics. I care more about bounded energy error than pretty spirals that secretly dissipate.
 
 [![CI](https://github.com/SK090347/nbody-orbit/actions/workflows/ci.yml/badge.svg)](https://github.com/SK090347/nbody-orbit/actions/workflows/ci.yml)
